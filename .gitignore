@@ -1,6 +1,7 @@
 build
 debian/changelog
 debian/files
+debian/syncqt*
 doc/
 *.user
 .directory
@@ -14,3 +15,5 @@ mkspecs
 bin
 qtusb*
 libqt5usb*
+src/usb/qusbglobal.h
+

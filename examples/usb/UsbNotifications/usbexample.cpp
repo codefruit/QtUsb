@@ -3,12 +3,11 @@
 UsbExample::UsbExample(QObject *parent)
     : QObject(parent)
 {
-    QObject::connect(&m_usb_manager, SIGNAL(deviceInserted(QUsbDevice::IdList)),
-                     this, SLOT(onDevInserted(QUsbDevice::IdList)));
-    QObject::connect(&m_usb_manager, SIGNAL(deviceRemoved(QUsbDevice::IdList)), this,
-                     SLOT(onDevRemoved(QUsbDevice::IdList)));
+    QObject::connect(&m_usb, &QUsb::deviceInserted,
+                     this, &UsbExample::onDevInserted);
+    QObject::connect(&m_usb, &QUsb::deviceRemoved,
+                     this, &UsbExample::onDevRemoved);
 
-    m_usb_manager.setLogLevel(QUsbDevice::logDebug);
     qInfo("Starting...");
     qInfo("Press CTRL+C to close.");
 }
@@ -18,20 +17,12 @@ UsbExample::~UsbExample()
     qInfo("Closing...");
 }
 
-void UsbExample::onDevInserted(QUsbDevice::IdList list)
+void UsbExample::onDevInserted(QUsb::Id id)
 {
-    qInfo("devices inserted");
-    for (int i = 0; i < list.length(); i++) {
-        QUsbDevice::Id f = list.at(i);
-        qInfo("V%04x:P%04x", f.vid, f.pid);
-    }
+    qInfo("Device inserted: %04x:%04x", id.vid, id.pid);
 }
 
-void UsbExample::onDevRemoved(QUsbDevice::IdList list)
+void UsbExample::onDevRemoved(QUsb::Id id)
 {
-    qInfo("devices removed");
-    for (int i = 0; i < list.length(); i++) {
-        QUsbDevice::Id f = list.at(i);
-        qInfo("V%04x:P%04x", f.vid, f.pid);
-    }
+    qInfo("Device removed: %04x:%04x", id.vid, id.pid);
 }

@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS += cmake qusbdevice qusbinfo qusbtransfer
+SUBDIRS += cmake qusb qusbdevice qusbendpoint qhiddevice

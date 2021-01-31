@@ -10,13 +10,6 @@ class UsbExample : public QObject
     Q_OBJECT
 public:
     explicit UsbExample(QObject *parent = Q_NULLPTR);
-    ~UsbExample(void);
-
-signals:
-
-public slots:
-    void onDevInserted(QUsb::Id id);
-    void onDevRemoved(QUsb::Id id);
 
 private:
     QUsb m_usb;
